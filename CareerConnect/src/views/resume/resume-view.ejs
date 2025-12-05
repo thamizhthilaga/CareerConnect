@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('../partials/header') %>
+
+  <main class="main-content">
+    <div class="resume-view-container">
+      <div class="resume-actions">
+        <a href="/resume/edit/<%= resume._id %>" class="btn btn-primary">Edit</a>
+        <a href="/resume/download/<%= resume._id %>" class="btn btn-secondary">Download PDF</a>
+        <a href="/resume" class="btn btn-tertiary">Back</a>
+      </div>
+
+      <div class="resume-preview">
+        <header class="resume-header">
+          <h1><%= resume.personalInfo.fullName %></h1>
+          <p class="email"><%= resume.personalInfo.email %></p>
+          <% if (resume.personalInfo.phone) { %>
+            <p class="phone"><%= resume.personalInfo.phone %></p>
+          <% } %>
+          <% if (resume.personalInfo.location) { %>
+            <p class="location"><%= resume.personalInfo.location %></p>
+          <% } %>
+        </header>
+
+        <% if (resume.personalInfo.summary) { %>
+          <section class="resume-section">
+            <h2>Professional Summary</h2>
+            <p><%= resume.personalInfo.summary %></p>
+          </section>
+        <% } %>
+
+        <% if (resume.skills && resume.skills.length > 0) { %>
+          <section class="resume-section">
+            <h2>Skills</h2>
+            <ul>
+              <% resume.skills.forEach(skill => { %>
+                <li><%= skill %></li>
+              <% }); %>
+            </ul>
+          </section>
+        <% } %>
+
+        <% if (resume.experience && resume.experience.length > 0) { %>
+          <section class="resume-section">
+            <h2>Work Experience</h2>
+            <% resume.experience.forEach(exp => { %>
+              <div class="resume-entry">
+                <h3><%= exp.jobTitle %></h3>
+                <p class="company"><%= exp.company %></p>
+                <p class="date">
+                  <%= new Date(exp.startDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) %> -
+                  <%= new Date(exp.endDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) %>
+                </p>
+                <p class="description"><%= exp.description %></p>
+              </div>
+            <% }); %>
+          </section>
+        <% } %>
+
+        <% if (resume.education && resume.education.length > 0) { %>
+          <section class="resume-section">
+            <h2>Education</h2>
+            <% resume.education.forEach(edu => { %>
+              <div class="resume-entry">
+                <h3><%= edu.degree %> in <%= edu.field %></h3>
+                <p class="institution"><%= edu.institution %></p>
+                <% if (edu.graduationDate) { %>
+                  <p class="date"><%= new Date(edu.graduationDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) %></p>
+                <% } %>
+              </div>
+            <% }); %>
+          </section>
+        <% } %>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

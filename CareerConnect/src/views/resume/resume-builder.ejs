@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('../partials/header') %>
+
+  <main class="main-content">
+    <div class="resume-builder-container">
+      <a href="/resume" class="back-link">← Back to My Resumes</a>
+
+      <div class="resume-builder-header">
+        <h1><%= isEdit ? 'Edit' : 'Create' %> Resume</h1>
+        <% if (careerDetails) { %>
+          <p>Career Path: <strong><%= careerPath %></strong></p>
+          <p>Suggested Skills: <span class="skills-preview"><%= careerDetails.skills.slice(0, 3).join(', ') %>...</span></p>
+        <% } %>
+      </div>
+
+      <form method="POST" action="/resume/save/<%= resume ? resume._id : \"new\" %>" class="resume-form" id="resumeForm">
+        <!-- Personal Information -->
+        <fieldset class="resume-section">
+          <legend>Personal Information</legend>
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input
+              type="text"
+              id="fullName"
+              name="personalInfo[fullName]"
+              value="<%= resume?.personalInfo?.fullName || '' %>"
+              required
+            />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="personalInfo[email]"
+                value="<%= resume?.personalInfo?.email || '' %>"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input
+                type="tel"
+                id="phone"
+                name="personalInfo[phone]"
+                value="<%= resume?.personalInfo?.phone || '' %>"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="location">Location</label>
+            <input
+              type="text"
+              id="location"
+              name="personalInfo[location]"
+              value="<%= resume?.personalInfo?.location || '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="summary">Professional Summary</label>
+            <textarea
+              id="summary"
+              name="personalInfo[summary]"
+              rows="4"
+            ><%= resume?.personalInfo?.summary || '' %></textarea>
+          </div>
+        </fieldset>
+
+        <!-- Skills -->
+        <fieldset class="resume-section">
+          <legend>Skills</legend>
+          <div class="form-group">
+            <label>Add your skills (comma-separated)</label>
+            <textarea
+              name="skills"
+              rows="3"
+              placeholder="e.g., JavaScript, React, Node.js, MongoDB"
+            ><%= resume?.skills?.join(', ') || (careerDetails ? careerDetails.skills.join(', ') : '') %></textarea>
+          </div>
+        </fieldset>
+
+        <!-- Education -->
+        <fieldset class="resume-section">
+          <legend>Education</legend>
+          <div class="form-group">
+            <label>Add Education</label>
+            <div id="educationContainer">
+              <% if (resume?.education?.length > 0) { %>
+                <% resume.education.forEach((edu, index) => { %>
+                  <div class="form-subsection">
+                    <input type="text" placeholder="Degree" name="education[<%= index %>][degree]" value="<%= edu.degree %>" />
+                    <input type="text" placeholder="Institution" name="education[<%= index %>][institution]" value="<%= edu.institution %>" />
+                    <input type="text" placeholder="Field of Study" name="education[<%= index %>][field]" value="<%= edu.field %>" />
+                    <input type="date" name="education[<%= index %>][graduationDate]" value="<%= edu.graduationDate ? edu.graduationDate.split('T')[0] : '' %}" />
+                  </div>
+                <% }); %>
+              <% } %>
+            </div>
+            <button type="button" onclick="addEducation()" class="btn btn-secondary btn-sm">+ Add Education</button>
+          </div>
+        </fieldset>
+
+        <!-- Experience -->
+        <fieldset class="resume-section">
+          <legend>Work Experience</legend>
+          <div class="form-group">
+            <label>Add Experience</label>
+            <div id="experienceContainer">
+              <% if (resume?.experience?.length > 0) { %>
+                <% resume.experience.forEach((exp, index) => { %>
+                  <div class="form-subsection">
+                    <input type="text" placeholder="Job Title" name="experience[<%= index %>][jobTitle]" value="<%= exp.jobTitle %>" />
+                    <input type="text" placeholder="Company" name="experience[<%= index %>][company]" value="<%= exp.company %>" />
+                    <input type="date" placeholder="Start Date" name="experience[<%= index %>][startDate]" value="<%= exp.startDate ? exp.startDate.split('T')[0] : '' %>" />
+                    <input type="date" placeholder="End Date" name="experience[<%= index %>][endDate]" value="<%= exp.endDate ? exp.endDate.split('T')[0] : '' %}" />
+                    <textarea placeholder="Description" name="experience[<%= index %>][description]"><%= exp.description %></textarea>
+                  </div>
+                <% }); %>
+              <% } %>
+            </div>
+            <button type="button" onclick="addExperience()" class="btn btn-secondary btn-sm">+ Add Experience</button>
+          </div>
+        </fieldset>
+
+        <fieldset class="resume-section">
+          <input type="hidden" name="careerPath" value="<%= careerPath %>" />
+        </fieldset>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Save Resume</button>
+          <a href="/resume" class="btn btn-secondary">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script src="/js/main.js"></script>
+  <script>
+    function addEducation() {
+      const container = document.getElementById('educationContainer');
+      const index = container.children.length;
+      const div = document.createElement('div');
+      div.className = 'form-subsection';
+      div.innerHTML = `
+        <input type="text" placeholder="Degree" name="education[${index}][degree]" />
+        <input type="text" placeholder="Institution" name="education[${index}][institution]" />
+        <input type="text" placeholder="Field of Study" name="education[${index}][field]" />
+        <input type="date" name="education[${index}][graduationDate]" />
+      `;
+      container.appendChild(div);
+    }
+
+    function addExperience() {
+      const container = document.getElementById('experienceContainer');
+      const index = container.children.length;
+      const div = document.createElement('div');
+      div.className = 'form-subsection';
+      div.innerHTML = `
+        <input type="text" placeholder="Job Title" name="experience[${index}][jobTitle]" />
+        <input type="text" placeholder="Company" name="experience[${index}][company]" />
+        <input type="date" placeholder="Start Date" name="experience[${index}][startDate]" />
+        <input type="date" placeholder="End Date" name="experience[${index}][endDate]" />
+        <textarea placeholder="Description" name="experience[${index}][description]"></textarea>
+      `;
+      container.appendChild(div);
+    }
+  </script>
+</body>
+</html>

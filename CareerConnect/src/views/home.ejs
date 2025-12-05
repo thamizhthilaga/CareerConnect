@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('./partials/header') %>
+
+  <main class="main-content">
+    <section class="hero-section">
+      <div class="hero-content">
+        <h1>Welcome to CareerConnect, <%= user.fullName %>!</h1>
+        <p>Your journey to the perfect IT career starts here</p>
+      </div>
+    </section>
+
+    <div class="home-container">
+      <% if (isStudent && !recommendedCareer) { %>
+        <section class="cta-section">
+          <h2>Get Started</h2>
+          <p>Begin by taking our comprehensive career assessment to find your ideal path</p>
+          <a href="/assessment/assessment" class="btn btn-primary btn-lg">Start Assessment</a>
+        </section>
+      <% } else if (isStudent && recommendedCareer) { %>
+        <section class="welcome-section">
+          <h2>Your Recommended Career Path</h2>
+          <div class="career-card">
+            <h3><%= recommendedCareer %></h3>
+            <p>Based on your assessment results, this is your ideal career path.</p>
+            <div class="action-buttons">
+              <a href="/learning/path" class="btn btn-primary">View Learning Path</a>
+              <a href="/learning/roadmap" class="btn btn-secondary">See Roadmap</a>
+              <a href="/assessment/assessment" class="btn btn-tertiary">Retake Assessment</a>
+            </div>
+          </div>
+        </section>
+      <% } %>
+
+      <section class="features-section">
+        <h2>Platform Features</h2>
+        <div class="features-grid">
+          <div class="feature-box">
+            <div class="feature-icon">📋</div>
+            <h3>Career Assessment</h3>
+            <p>Take an interest-based test to discover your ideal IT career path</p>
+            <a href="/assessment/assessment" class="feature-link">Start Assessment →</a>
+          </div>
+
+          <div class="feature-box">
+            <div class="feature-icon">📚</div>
+            <h3>Skill Learning</h3>
+            <p>Access tailored learning modules and resources for your career</p>
+            <a href="/learning/path" class="feature-link">Start Learning →</a>
+          </div>
+
+          <div class="feature-box">
+            <div class="feature-icon">👥</div>
+            <h3>Mentor Community</h3>
+            <p>Ask questions and learn from experienced professionals</p>
+            <a href="/community" class="feature-link">Join Community →</a>
+          </div>
+
+          <% if (isStudent) { %>
+            <div class="feature-box">
+              <div class="feature-icon">💼</div>
+              <h3>Job Opportunities</h3>
+              <p>Discover job openings matched to your career path</p>
+              <a href="/jobs" class="feature-link">Browse Jobs →</a>
+            </div>
+
+            <div class="feature-box">
+              <div class="feature-icon">📄</div>
+              <h3>Resume Builder</h3>
+              <p>Create a professional resume tailored to your IT career</p>
+              <a href="/resume" class="feature-link">Build Resume →</a>
+            </div>
+
+            <div class="feature-box">
+              <div class="feature-icon">🎯</div>
+              <h3>Career Roadmap</h3>
+              <p>Get a clear growth path with milestones and achievements</p>
+              <a href="/learning/roadmap" class="feature-link">View Roadmap →</a>
+            </div>
+          <% } %>
+        </div>
+      </section>
+
+      <% if (isStudent) { %>
+        <section class="dashboard-preview">
+          <h2>Your Dashboard</h2>
+          <a href="/student-dashboard" class="btn btn-primary">Go to Dashboard</a>
+        </section>
+      <% } else if (isMentor) { %>
+        <section class="dashboard-preview">
+          <h2>Mentor Dashboard</h2>
+          <a href="/mentor-dashboard" class="btn btn-primary">Go to Dashboard</a>
+        </section>
+      <% } %>
+    </div>
+  </main>
+
+  <%- include('./partials/footer') %>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

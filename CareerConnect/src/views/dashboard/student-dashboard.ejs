@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('../partials/header') %>
+
+  <main class="main-content">
+    <div class="dashboard-container">
+      <h1>Student Dashboard</h1>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>Assessments Taken</h3>
+          <p class="stat-value"><%= stats.assessmentsTaken %></p>
+        </div>
+        <div class="stat-card">
+          <h3>Questions Asked</h3>
+          <p class="stat-value"><%= stats.questionsAsked %></p>
+        </div>
+        <div class="stat-card">
+          <h3>Jobs Saved</h3>
+          <p class="stat-value"><%= stats.jobsSaved %></p>
+        </div>
+        <div class="stat-card">
+          <h3>Resumes Created</h3>
+          <p class="stat-value"><%= stats.resumesCreated %></p>
+        </div>
+      </div>
+
+      <% if (assessment) { %>
+        <section class="dashboard-section">
+          <h2>Your Career Assessment</h2>
+          <div class="assessment-info">
+            <p><strong>Recommended Career:</strong> <%= assessment.recommendedCareer %></p>
+            <p><strong>Completed On:</strong> <%= new Date(assessment.completedAt).toLocaleDateString() %></p>
+            <a href="/learning/path" class="btn btn-primary">View Learning Path</a>
+            <a href="/assessment/assessment" class="btn btn-secondary">Retake Assessment</a>
+          </div>
+        </section>
+      <% } else { %>
+        <section class="dashboard-section">
+          <h2>Get Started</h2>
+          <p>Take our career assessment to discover your ideal IT career path</p>
+          <a href="/assessment/assessment" class="btn btn-primary btn-lg">Start Assessment</a>
+        </section>
+      <% } %>
+
+      <section class="dashboard-section">
+        <h2>Quick Actions</h2>
+        <div class="action-grid">
+          <a href="/learning/path" class="action-box">
+            <span class="action-icon">📚</span>
+            <h3>Learning Path</h3>
+            <p>Continue your learning journey</p>
+          </a>
+          <a href="/community" class="action-box">
+            <span class="action-icon">👥</span>
+            <h3>Ask Questions</h3>
+            <p>Connect with mentors</p>
+          </a>
+          <a href="/jobs" class="action-box">
+            <span class="action-icon">💼</span>
+            <h3>Job Opportunities</h3>
+            <p>Find your next role</p>
+          </a>
+          <a href="/resume" class="action-box">
+            <span class="action-icon">📄</span>
+            <h3>Resume Builder</h3>
+            <p>Build your resume</p>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('../partials/header') %>
+
+  <main class="main-content">
+    <div class="mentor-profile-container">
+      <a href="/community" class="back-link">← Back to Forum</a>
+
+      <div class="mentor-profile-card">
+        <div class="profile-header">
+          <div class="profile-avatar">
+            <% if (mentor.profileImage) { %>
+              <img src="<%= mentor.profileImage %>" alt="<%= mentor.fullName %>">
+            <% } else { %>
+              <div class="avatar-placeholder"><%= mentor.fullName.charAt(0) %></div>
+            <% } %>
+          </div>
+          <div class="profile-info">
+            <h1><%= mentor.fullName %></h1>
+            <p class="specialization"><%= mentor.specialization || 'IT Professional' %></p>
+            <p class="experience"><%= mentor.yearsOfExperience %> years of experience</p>
+          </div>
+        </div>
+
+        <div class="profile-bio">
+          <h3>About</h3>
+          <p><%= mentor.bio || 'No bio added yet' %></p>
+        </div>
+
+        <div class="profile-stats">
+          <div class="stat">
+            <span class="stat-number"><%= answersCount %></span>
+            <span class="stat-label">Answers Given</span>
+          </div>
+        </div>
+
+        <div class="profile-actions">
+          <a href="/community" class="btn btn-primary">Back to Forum</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

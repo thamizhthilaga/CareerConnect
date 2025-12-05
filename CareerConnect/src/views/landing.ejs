@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="landing-page">
+  <div class="landing-container">
+    <div class="landing-content">
+      <h1>Welcome to CareerConnect</h1>
+      <p>Discover Your Perfect IT Career Path</p>
+
+      <div class="role-selection">
+        <div class="role-card">
+          <div class="role-icon">👨‍🎓</div>
+          <h2>Student</h2>
+          <p>Take career assessments, learn new skills, and connect with mentors</p>
+          <a href="/auth/register?role=student" class="btn btn-primary">Register as Student</a>
+          <p class="login-link">Already have an account? <a href="/auth/login">Login here</a></p>
+        </div>
+
+        <div class="role-card">
+          <div class="role-icon">👨‍🏫</div>
+          <h2>Mentor</h2>
+          <p>Guide students, answer questions, and share your expertise</p>
+          <a href="/auth/register?role=mentor" class="btn btn-secondary">Register as Mentor</a>
+          <p class="login-link">Already have an account? <a href="/auth/login">Login here</a></p>
+        </div>
+      </div>
+
+      <div class="features-preview">
+        <h3>Why Choose CareerConnect?</h3>
+        <div class="features-grid">
+          <div class="feature">
+            <span class="feature-icon">📋</span>
+            <h4>Career Assessment</h4>
+            <p>Take a comprehensive test to find your ideal career path</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">📚</span>
+            <h4>Learning Resources</h4>
+            <p>Access curated learning materials for your chosen path</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">👥</span>
+            <h4>Community Forum</h4>
+            <p>Connect with mentors and fellow students</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">💼</span>
+            <h4>Job Opportunities</h4>
+            <p>Discover job openings matched to your career path</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">📄</span>
+            <h4>Resume Builder</h4>
+            <p>Create a professional resume tailored to your career</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">🎯</span>
+            <h4>Personalized Roadmap</h4>
+            <p>Get a clear growth path with milestones</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

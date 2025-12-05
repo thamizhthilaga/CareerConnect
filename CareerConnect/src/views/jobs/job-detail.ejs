@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('../partials/header') %>
+
+  <main class="main-content">
+    <div class="job-detail-container">
+      <a href="/jobs" class="back-link">← Back to Jobs</a>
+
+      <article class="job-detail">
+        <div class="job-detail-header">
+          <h1><%= job.title %></h1>
+          <div class="job-company"><%= job.company %></div>
+          <div class="job-badges">
+            <span class="badge"><%= job.careerPath %></span>
+            <span class="badge"><%= job.jobType %></span>
+            <span class="badge">📍 <%= job.location %></span>
+          </div>
+        </div>
+
+        <div class="job-meta-row">
+          <div class="job-salary">
+            <strong>Salary:</strong> <%= job.salary %>
+          </div>
+          <div class="job-save">
+            <button onclick="saveJob('<%= job._id %>')" class="btn btn-sm <%= isSaved ? 'saved' : '' %>">
+              <% if (isSaved) { %>
+                ❤️ Saved
+              <% } else { %>
+                🤍 Save Job
+              <% } %>
+            </button>
+          </div>
+        </div>
+
+        <section class="job-description-section">
+          <h2>Job Description</h2>
+          <div class="job-description-text">
+            <%= job.description %>
+          </div>
+        </section>
+
+        <section class="job-requirements-section">
+          <h2>Requirements</h2>
+          <ul class="requirements-list">
+            <% job.requirements.forEach(req => { %>
+              <li><%= req %></li>
+            <% }); %>
+          </ul>
+        </section>
+
+        <div class="job-apply-section">
+          <a href="<%= job.applicationLink %>" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">
+            Apply Now
+          </a>
+          <p class="apply-note">You'll be redirected to the company's application page</p>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

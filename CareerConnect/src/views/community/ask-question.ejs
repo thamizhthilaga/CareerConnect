@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('../partials/header') %>
+
+  <main class="main-content">
+    <div class="ask-question-container">
+      <a href="/community" class="back-link">← Back to Forum</a>
+
+      <div class="ask-form-card">
+        <h1>Ask a Question</h1>
+        <p>Help other students and get answers from experienced mentors</p>
+
+        <form method="POST" action="/community/ask" class="ask-form">
+          <div class="form-group">
+            <label for="title">Question Title</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              required
+              placeholder="What's your question?"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea
+              id="description"
+              name="description"
+              required
+              placeholder="Provide details about your question..."
+              rows="8"
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="careerPath">Related Career Path</label>
+            <select id="careerPath" name="careerPath" required>
+              <option value="">Select a career path</option>
+              <option value="Web Developer">Web Developer</option>
+              <option value="UI/UX Designer">UI/UX Designer</option>
+              <option value="Data Analyst">Data Analyst</option>
+              <option value="Cloud Engineer">Cloud Engineer</option>
+              <option value="Cybersecurity Specialist">Cybersecurity Specialist</option>
+              <option value="Software Tester">Software Tester</option>
+              <option value="Mobile App Developer">Mobile App Developer</option>
+            </select>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Post Question</button>
+            <a href="/community" class="btn btn-secondary">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

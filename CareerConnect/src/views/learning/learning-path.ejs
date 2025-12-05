@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('../partials/header') %>
+
+  <main class="main-content">
+    <div class="learning-container">
+      <div class="learning-header">
+        <h1>Learning Path for <%= career.name %></h1>
+        <p><%= career.description %></p>
+      </div>
+
+      <section class="learning-section">
+        <h2>Essential Skills to Master</h2>
+        <div class="skills-list">
+          <% career.skills.forEach(skill => { %>
+            <div class="skill-item">
+              <span class="skill-icon">🎯</span>
+              <span class="skill-name"><%= skill %></span>
+            </div>
+          <% }); %>
+        </div>
+      </section>
+
+      <% if (modules && modules.length > 0) { %>
+        <section class="modules-section">
+          <h2>Learning Modules</h2>
+          <div class="modules-grid">
+            <% modules.forEach(module => { %>
+              <div class="module-card">
+                <div class="module-level"><%= module.level %></div>
+                <h3><%= module.title %></h3>
+                <p><%= module.description %></p>
+                <div class="module-meta">
+                  <% if (module.resources) { %>
+                    <span><%= module.resources.length %> Resources</span>
+                  <% } %>
+                  <% if (module.tasks) { %>
+                    <span><%= module.tasks.length %> Tasks</span>
+                  <% } %>
+                </div>
+                <a href="/learning/module/<%= module._id %>" class="btn btn-secondary">View Module</a>
+              </div>
+            <% }); %>
+          </div>
+        </section>
+      <% } else { %>
+        <section class="no-modules">
+          <p>Modules coming soon for this career path!</p>
+        </section>
+      <% } %>
+
+      <section class="learning-roadmap">
+        <h2>Learning Topics</h2>
+        <ul class="topics-list">
+          <% career.topics.forEach(topic => { %>
+            <li><%= topic %></li>
+          <% }); %>
+        </ul>
+      </section>
+
+      <div class="learning-actions">
+        <a href="/learning/roadmap" class="btn btn-primary">View Full Roadmap</a>
+        <a href="/home" class="btn btn-secondary">Back to Home</a>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

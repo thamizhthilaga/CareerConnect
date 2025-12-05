@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('partials/header') %>
+
+  <main class="main-content">
+    <div class="profile-container">
+      <div class="profile-card">
+        <h1>My Profile</h1>
+
+        <form method="POST" action="/profile" class="profile-form">
+          <div class="form-section">
+            <h2>Personal Information</h2>
+
+            <div class="form-group">
+              <label for="fullName">Full Name</label>
+              <input
+                type="text"
+                id="fullName"
+                name="fullName"
+                value="<%= user.fullName %>"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value="<%= user.email %>"
+                disabled
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="bio">Bio</label>
+              <textarea
+                id="bio"
+                name="bio"
+                placeholder="Tell us about yourself"
+              ><%= user.bio || '' %></textarea>
+            </div>
+
+            <% if (user.role === 'mentor') { %>
+              <div class="form-group">
+                <label for="specialization">Specialization</label>
+                <select id="specialization" name="specialization" required>
+                  <option value="">Select your specialization</option>
+                  <option value="Web Developer" <%= user.specialization === 'Web Developer' ? 'selected' : '' %>>
+                    Web Developer
+                  </option>
+                  <option value="UI/UX Designer" <%= user.specialization === 'UI/UX Designer' ? 'selected' : '' %>>
+                    UI/UX Designer
+                  </option>
+                  <option value="Data Analyst" <%= user.specialization === 'Data Analyst' ? 'selected' : '' %>>
+                    Data Analyst
+                  </option>
+                  <option value="Cloud Engineer" <%= user.specialization === 'Cloud Engineer' ? 'selected' : '' %>>
+                    Cloud Engineer
+                  </option>
+                  <option value="Cybersecurity Specialist" <%= user.specialization === 'Cybersecurity Specialist' ? 'selected' : '' %>>
+                    Cybersecurity Specialist
+                  </option>
+                  <option value="Software Tester" <%= user.specialization === 'Software Tester' ? 'selected' : '' %>>
+                    Software Tester
+                  </option>
+                  <option value="Mobile App Developer" <%= user.specialization === 'Mobile App Developer' ? 'selected' : '' %>>
+                    Mobile App Developer
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="yearsOfExperience">Years of Experience</label>
+                <input
+                  type="number"
+                  id="yearsOfExperience"
+                  name="yearsOfExperience"
+                  value="<%= user.yearsOfExperience || '' %>"
+                  min="0"
+                />
+              </div>
+            <% } %>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Update Profile</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

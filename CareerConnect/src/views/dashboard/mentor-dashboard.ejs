@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('../partials/header') %>
+
+  <main class="main-content">
+    <div class="dashboard-container">
+      <h1>Mentor Dashboard</h1>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>Questions for Your Field</h3>
+          <p class="stat-value"><%= stats.questionsForSpecialization %></p>
+        </div>
+        <div class="stat-card">
+          <h3>Answers Given</h3>
+          <p class="stat-value"><%= stats.answersGiven %></p>
+        </div>
+        <div class="stat-card">
+          <h3>Unread Notifications</h3>
+          <p class="stat-value"><%= stats.unreadNotifications %></p>
+        </div>
+      </div>
+
+      <section class="dashboard-section">
+        <h2>Your Specialization</h2>
+        <div class="specialization-info">
+          <p><strong>Field:</strong> <%= user.specialization || 'Not set' %></p>
+          <p><strong>Years of Experience:</strong> <%= user.yearsOfExperience || 'Not specified' %></p>
+          <p><strong>Bio:</strong> <%= user.bio || 'No bio added yet' %></p>
+          <a href="/profile" class="btn btn-primary">Update Profile</a>
+        </div>
+      </section>
+
+      <section class="dashboard-section">
+        <h2>Recent Activities</h2>
+        <div class="action-grid">
+          <a href="/community" class="action-box">
+            <span class="action-icon">💬</span>
+            <h3>Community Forum</h3>
+            <p>Answer student questions</p>
+          </a>
+          <a href="/profile" class="action-box">
+            <span class="action-icon">👤</span>
+            <h3>My Profile</h3>
+            <p>View your mentor profile</p>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

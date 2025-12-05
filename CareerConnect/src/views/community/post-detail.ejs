@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('../partials/header') %>
+
+  <main class="main-content">
+    <div class="post-detail-container">
+      <a href="/community" class="back-link">← Back to Forum</a>
+
+      <article class="post-detail">
+        <div class="post-header-detail">
+          <h1><%= post.title %></h1>
+          <div class="post-meta-detail">
+            <span class="career-badge"><%= post.careerPath %></span>
+            <span>Asked by <%= post.studentId.fullName %></span>
+            <span><%= new Date(post.createdAt).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'}) %></span>
+            <span><%= post.views %> views</span>
+            <% if (post.solved) { %>
+              <span class="badge badge-success">Solved</span>
+            <% } %>
+          </div>
+        </div>
+
+        <div class="post-body">
+          <%= post.description %>
+        </div>
+
+        <div class="post-actions-detail">
+          <% if (isAuthor) { %>
+            <button onclick="deletePost('<%= post._id %>')" class="btn btn-danger btn-sm">Delete</button>
+          <% } %>
+        </div>
+      </article>
+
+      <section class="comments-section">
+        <h2>Answers (<%= post.comments.length %>)</h2>
+
+        <% if (post.comments.length > 0) { %>
+          <div class="comments-list">
+            <% post.comments.forEach(comment => { %>
+              <div class="comment">
+                <div class="comment-header">
+                  <strong><%= comment.authorName %></strong>
+                  <span class="comment-role <%= comment.authorRole %>-role"><%= comment.authorRole %></span>
+                  <span class="comment-date"><%= new Date(comment.createdAt).toLocaleDateString() %></span>
+                </div>
+                <div class="comment-body">
+                  <%= comment.content %>
+                </div>
+              </div>
+            <% }); %>
+          </div>
+        <% } else { %>
+          <p>No answers yet. Be the first to answer!</p>
+        <% } %>
+      </section>
+
+      <section class="reply-section">
+        <h2>Post Your Answer</h2>
+        <form method="POST" action="/community/post/<%= post._id %>/comment" class="reply-form">
+          <div class="form-group">
+            <textarea
+              name="content"
+              required
+              placeholder="Share your knowledge and help others..."
+              rows="6"
+            ></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Post Answer</button>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

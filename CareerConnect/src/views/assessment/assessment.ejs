@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('../partials/header') %>
+
+  <main class="main-content">
+    <div class="assessment-container">
+      <h1>Career Interest Assessment</h1>
+      <p class="subtitle">Answer the following questions to discover your ideal IT career path</p>
+
+      <form method="POST" action="/assessment/assessment" class="assessment-form">
+        <div class="assessment-section">
+          <h2>Question 1: What interests you most?</h2>
+          <div class="form-group">
+            <div class="radio-group">
+              <label>
+                <input type="radio" name="question1" value="coding" required />
+                Coding and Programming
+              </label>
+              <label>
+                <input type="radio" name="question1" value="design" />
+                Design and User Experience
+              </label>
+              <label>
+                <input type="radio" name="question1" value="data" />
+                Data and Analytics
+              </label>
+              <label>
+                <input type="radio" name="question1" value="security" />
+                Security and Protection
+              </label>
+              <label>
+                <input type="radio" name="question1" value="testing" />
+                Testing and Quality Assurance
+              </label>
+              <label>
+                <input type="radio" name="question1" value="infrastructure" />
+                Infrastructure and Systems
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="assessment-section">
+          <h2>Question 2: What is your preferred skill type?</h2>
+          <div class="form-group">
+            <div class="radio-group">
+              <label>
+                <input type="radio" name="question2" value="frontend" required />
+                Frontend Development (UI, User Interfaces)
+              </label>
+              <label>
+                <input type="radio" name="question2" value="backend" />
+                Backend Development (Servers, Databases)
+              </label>
+              <label>
+                <input type="radio" name="question2" value="fullstack" />
+                Full Stack Development
+              </label>
+              <label>
+                <input type="radio" name="question2" value="analysis" />
+                Data Analysis
+              </label>
+              <label>
+                <input type="radio" name="question2" value="design_tools" />
+                Design Tools and Creative Work
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="assessment-section">
+          <h2>Question 3: What's your preferred work style?</h2>
+          <div class="form-group">
+            <div class="radio-group">
+              <label>
+                <input type="radio" name="question3" value="creative" required />
+                Creative and Innovative
+              </label>
+              <label>
+                <input type="radio" name="question3" value="analytical" />
+                Analytical and Logical
+              </label>
+              <label>
+                <input type="radio" name="question3" value="independent" />
+                Independent and Self-directed
+              </label>
+              <label>
+                <input type="radio" name="question3" value="collaborative" />
+                Collaborative and Team-oriented
+              </label>
+              <label>
+                <input type="radio" name="question3" value="detailed" />
+                Detail-oriented and Precise
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="assessment-section">
+          <h2>Question 4: What are your main strength areas?</h2>
+          <div class="form-group">
+            <div class="radio-group">
+              <label>
+                <input type="radio" name="question4" value="problem_solving" required />
+                Problem Solving
+              </label>
+              <label>
+                <input type="radio" name="question4" value="communication" />
+                Communication Skills
+              </label>
+              <label>
+                <input type="radio" name="question4" value="attention_to_detail" />
+                Attention to Detail
+              </label>
+              <label>
+                <input type="radio" name="question4" value="creativity" />
+                Creativity and Innovation
+              </label>
+              <label>
+                <input type="radio" name="question4" value="technical_knowledge" />
+                Technical Knowledge
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="assessment-buttons">
+          <button type="submit" class="btn btn-primary btn-lg">See Your Results</button>
+          <a href="/home" class="btn btn-secondary">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

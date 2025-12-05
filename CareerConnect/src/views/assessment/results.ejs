@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('../partials/header') %>
+
+  <main class="main-content">
+    <div class="results-container">
+      <div class="results-header">
+        <h1>Assessment Results</h1>
+        <p>Congratulations! We've found your ideal career path</p>
+      </div>
+
+      <div class="career-result">
+        <div class="career-badge">
+          <h2><%= career.name %></h2>
+          <p class="career-description"><%= career.description %></p>
+        </div>
+
+        <section class="career-section">
+          <h3>Essential Skills</h3>
+          <div class="skills-list">
+            <% career.skills.forEach(skill => { %>
+              <span class="skill-tag"><%= skill %></span>
+            <% }); %>
+          </div>
+        </section>
+
+        <section class="career-section">
+          <h3>Learning Topics</h3>
+          <ul class="topics-list">
+            <% career.topics.forEach(topic => { %>
+              <li><%= topic %></li>
+            <% }); %>
+          </ul>
+        </section>
+
+        <section class="career-section">
+          <h3>Growth Roadmap</h3>
+          <ol class="roadmap-list">
+            <% career.roadmap.forEach((step, index) => { %>
+              <li>
+                <span class="step-number"><%= index + 1 %></span>
+                <span class="step-text"><%= step %></span>
+              </li>
+            <% }); %>
+          </ol>
+        </section>
+
+        <div class="results-actions">
+          <a href="/learning/path" class="btn btn-primary btn-lg">Start Learning Path</a>
+          <a href="/learning/roadmap" class="btn btn-secondary">View Detailed Roadmap</a>
+          <a href="/assessment/assessment" class="btn btn-tertiary">Retake Assessment</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

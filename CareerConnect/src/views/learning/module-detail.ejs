@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('../partials/header') %>
+
+  <main class="main-content">
+    <div class="module-detail-container">
+      <a href="/learning/path" class="back-link">← Back to Learning Path</a>
+
+      <div class="module-header">
+        <h1><%= module.title %></h1>
+        <span class="module-level"><%= module.level %></span>
+      </div>
+
+      <section class="module-description">
+        <h2>Overview</h2>
+        <p><%= module.description %></p>
+      </section>
+
+      <section class="module-content">
+        <h2>Content</h2>
+        <div class="content-text">
+          <%- module.content %>
+        </div>
+      </section>
+
+      <% if (module.resources && module.resources.length > 0) { %>
+        <section class="module-resources">
+          <h2>Learning Resources</h2>
+          <div class="resources-list">
+            <% module.resources.forEach(resource => { %>
+              <div class="resource-item">
+                <span class="resource-type"><%= resource.type %></span>
+                <h4><%= resource.title %></h4>
+                <a href="<%= resource.link %>" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                  Visit Resource
+                </a>
+              </div>
+            <% }); %>
+          </div>
+        </section>
+      <% } %>
+
+      <% if (module.tasks && module.tasks.length > 0) { %>
+        <section class="module-tasks">
+          <h2>Practice Tasks</h2>
+          <div class="tasks-list">
+            <% module.tasks.forEach((task, index) => { %>
+              <div class="task-item">
+                <h4>Task <%= index + 1 %>: <%= task.title %></h4>
+                <p><%= task.description %></p>
+                <span class="task-difficulty"><%= task.difficulty %></span>
+              </div>
+            <% }); %>
+          </div>
+        </section>
+      <% } %>
+
+      <div class="module-actions">
+        <a href="/learning/path" class="btn btn-primary">Continue Learning</a>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

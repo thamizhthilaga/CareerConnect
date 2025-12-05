@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('../partials/header') %>
+
+  <main class="main-content">
+    <div class="assessment-history-container">
+      <h1>Your Assessment History</h1>
+
+      <% if (assessments.length > 0) { %>
+        <div class="assessments-list">
+          <% assessments.forEach(assessment => { %>
+            <div class="assessment-card">
+              <h3><%= assessment.recommendedCareer %></h3>
+              <p class="assessment-date">
+                Completed: <%= new Date(assessment.completedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %>
+              </p>
+              <div class="assessment-answers">
+                <p><strong>Interests:</strong> <%= assessment.answers.question1 %></p>
+                <p><strong>Skill Type:</strong> <%= assessment.answers.question2 %></p>
+                <p><strong>Work Style:</strong> <%= assessment.answers.question3 %></p>
+                <p><strong>Strengths:</strong> <%= assessment.answers.question4 %></p>
+              </div>
+              <a href="/results?career=<%= encodeURIComponent(assessment.recommendedCareer) %>" class="btn btn-secondary">
+                View Details
+              </a>
+            </div>
+          <% }); %>
+        </div>
+      <% } else { %>
+        <p>You haven't taken any assessments yet.</p>
+        <a href="/assessment/assessment" class="btn btn-primary">Take Assessment</a>
+      <% } %>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

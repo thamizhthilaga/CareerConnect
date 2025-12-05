@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('../partials/header') %>
+
+  <main class="main-content">
+    <div class="resume-list-container">
+      <h1>My Resumes</h1>
+
+      <% if (resumes.length > 0) { %>
+        <div class="resumes-grid">
+          <% resumes.forEach(resume => { %>
+            <div class="resume-card">
+              <h3><%= resume.careerPath %></h3>
+              <p class="resume-date">Last updated: <%= new Date(resume.updatedAt).toLocaleDateString() %></p>
+              <div class="resume-actions">
+                <a href="/resume/view/<%= resume._id %>" class="btn btn-secondary btn-sm">View</a>
+                <a href="/resume/edit/<%= resume._id %>" class="btn btn-tertiary btn-sm">Edit</a>
+                <a href="/resume/download/<%= resume._id %>" class="btn btn-primary btn-sm" download>Download PDF</a>
+                <button onclick="deleteResume('<%= resume._id %>')" class="btn btn-danger btn-sm">Delete</button>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      <% } else { %>
+        <p>You haven't created any resumes yet.</p>
+      <% } %>
+
+      <div class="resume-actions-main">
+        <a href="/resume/create" class="btn btn-primary btn-lg">Create New Resume</a>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
