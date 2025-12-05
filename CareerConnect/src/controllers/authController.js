@@ -109,7 +109,16 @@ exports.register = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
-    res.redirect('/home');
+    // Save basic user info in session for view rendering
+    req.session.user = user.toJSON ? user.toJSON() : { id: user._id, email: user.email, role: user.role, fullName: user.fullName };
+
+    // Redirect to role-specific dashboard
+    if (user.role === 'student') {
+      return res.redirect('/student-dashboard');
+    } else if (user.role === 'mentor') {
+      return res.redirect('/mentor-dashboard');
+    }
+    return res.redirect('/home');
   } catch (error) {
     console.error(error);
     res.status(500).render('error', { 
@@ -185,7 +194,17 @@ exports.login = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
-    res.redirect('/home');
+    // Save basic user info in session for view rendering
+    req.session.user = user.toJSON ? user.toJSON() : { id: user._id, email: user.email, role: user.role, fullName: user.fullName };
+
+    // Redirect to role-specific dashboard
+    if (user.role === 'student') {
+      return res.redirect('/student-dashboard');
+    } else if (user.role === 'mentor') {
+      return res.redirect('/mentor-dashboard');
+    }
+
+    return res.redirect('/home');
   } catch (error) {
     console.error(error);
     res.status(500).render('error', { 
@@ -201,5 +220,12 @@ exports.login = async (req, res) => {
 // Logout
 exports.logout = (req, res) => {
   res.clearCookie('token');
-  res.redirect('/');
+  // Destroy session user
+  if (req.session) {
+    req.session.destroy(() => {
+      return res.redirect('/');
+    });
+  } else {
+    res.redirect('/');
+  }
 };

@@ -36,11 +36,13 @@ exports.createResumePage = async (req, res) => {
 
     res.render('resume/resume-builder', {
       title: 'Create Resume - CareerConnect',
+      resume: null,
       careerPath: assessment?.recommendedCareer || '',
       careerDetails: assessment ? getCareerDetails(assessment.recommendedCareer) : null,
       user: req.user || null,
       isStudent: req.user?.role === 'student',
       isMentor: req.user?.role === 'mentor',
+      isEdit: false,
     });
   } catch (error) {
     console.error(error);

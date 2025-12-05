@@ -27,7 +27,7 @@
                 <p><strong>Work Style:</strong> <%= assessment.answers.question3 %></p>
                 <p><strong>Strengths:</strong> <%= assessment.answers.question4 %></p>
               </div>
-              <a href="/results?career=<%= encodeURIComponent(assessment.recommendedCareer) %>" class="btn btn-secondary">
+              <a href="/assessment/results?career=<%= encodeURIComponent(assessment.recommendedCareer) %>" class="btn btn-secondary">
                 View Details
               </a>
             </div>

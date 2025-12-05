@@ -10,13 +10,13 @@
   <%- include('../partials/header') %>
 
   <main class="main-content">
-    <div class="post-detail-container">
+    <div class="community-container">
       <a href="/community" class="back-link">← Back to Forum</a>
 
-      <article class="post-detail">
-        <div class="post-header-detail">
+      <article class="post-card">
+        <div class="post-header">
           <h1><%= post.title %></h1>
-          <div class="post-meta-detail">
+          <div class="post-meta">
             <span class="career-badge"><%= post.careerPath %></span>
             <span>Asked by <%= post.studentId.fullName %></span>
             <span><%= new Date(post.createdAt).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'}) %></span>
@@ -31,7 +31,7 @@
           <%= post.description %>
         </div>
 
-        <div class="post-actions-detail">
+        <div class="post-actions">
           <% if (isAuthor) { %>
             <button onclick="deletePost('<%= post._id %>')" class="btn btn-danger btn-sm">Delete</button>
           <% } %>

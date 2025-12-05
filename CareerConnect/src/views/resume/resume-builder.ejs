@@ -9,6 +9,12 @@
 <body>
   <%- include('../partials/header') %>
 
+  <% 
+    const personal = (typeof resume !== 'undefined' && resume && resume.personalInfo) ? resume.personalInfo : {};
+    const skillsText = (typeof resume !== 'undefined' && resume && resume.skills && resume.skills.length) ? resume.skills.join(', ') : (careerDetails ? careerDetails.skills.join(', ') : '');
+    const education = (typeof resume !== 'undefined' && resume && resume.education) ? resume.education : [];
+    const experience = (typeof resume !== 'undefined' && resume && resume.experience) ? resume.experience : [];
+  %>
   <main class="main-content">
     <div class="resume-builder-container">
       <a href="/resume" class="back-link">← Back to My Resumes</a>
@@ -21,19 +27,19 @@
         <% } %>
       </div>
 
-      <form method="POST" action="/resume/save/<%= resume ? resume._id : \"new\" %>" class="resume-form" id="resumeForm">
+      <form method="POST" action="/resume/save/<%= resume ? resume._id : 'new' %>" class="resume-form" id="resumeForm">
         <!-- Personal Information -->
         <fieldset class="resume-section">
           <legend>Personal Information</legend>
           <div class="form-group">
             <label for="fullName">Full Name</label>
-            <input
-              type="text"
-              id="fullName"
-              name="personalInfo[fullName]"
-              value="<%= resume?.personalInfo?.fullName || '' %>"
-              required
-            />
+              <input
+                type="text"
+                id="fullName"
+                name="personalInfo[fullName]"
+                value="<%= personal.fullName || '' %>"
+                required
+              />
           </div>
           <div class="form-row">
             <div class="form-group">
@@ -42,7 +48,7 @@
                 type="email"
                 id="email"
                 name="personalInfo[email]"
-                value="<%= resume?.personalInfo?.email || '' %>"
+                value="<%= personal.email || '' %>"
                 required
               />
             </div>
@@ -52,7 +58,7 @@
                 type="tel"
                 id="phone"
                 name="personalInfo[phone]"
-                value="<%= resume?.personalInfo?.phone || '' %>"
+                value="<%= personal.phone || '' %>"
               />
             </div>
           </div>
@@ -62,7 +68,7 @@
               type="text"
               id="location"
               name="personalInfo[location]"
-              value="<%= resume?.personalInfo?.location || '' %>"
+              value="<%= personal.location || '' %>"
             />
           </div>
           <div class="form-group">
@@ -71,7 +77,7 @@
               id="summary"
               name="personalInfo[summary]"
               rows="4"
-            ><%= resume?.personalInfo?.summary || '' %></textarea>
+            ><%= personal.summary || '' %></textarea>
           </div>
         </fieldset>
 
@@ -84,7 +90,7 @@
               name="skills"
               rows="3"
               placeholder="e.g., JavaScript, React, Node.js, MongoDB"
-            ><%= resume?.skills?.join(', ') || (careerDetails ? careerDetails.skills.join(', ') : '') %></textarea>
+            ><%= skillsText %></textarea>
           </div>
         </fieldset>
 
@@ -94,13 +100,13 @@
           <div class="form-group">
             <label>Add Education</label>
             <div id="educationContainer">
-              <% if (resume?.education?.length > 0) { %>
-                <% resume.education.forEach((edu, index) => { %>
+              <% if (education.length > 0) { %>
+                <% education.forEach((edu, index) => { %>
                   <div class="form-subsection">
                     <input type="text" placeholder="Degree" name="education[<%= index %>][degree]" value="<%= edu.degree %>" />
                     <input type="text" placeholder="Institution" name="education[<%= index %>][institution]" value="<%= edu.institution %>" />
                     <input type="text" placeholder="Field of Study" name="education[<%= index %>][field]" value="<%= edu.field %>" />
-                    <input type="date" name="education[<%= index %>][graduationDate]" value="<%= edu.graduationDate ? edu.graduationDate.split('T')[0] : '' %}" />
+                    <input type="date" name="education[<%= index %>][graduationDate]" value="<%= edu.graduationDate ? edu.graduationDate.split('T')[0] : '' %>" />
                   </div>
                 <% }); %>
               <% } %>
@@ -115,13 +121,13 @@
           <div class="form-group">
             <label>Add Experience</label>
             <div id="experienceContainer">
-              <% if (resume?.experience?.length > 0) { %>
-                <% resume.experience.forEach((exp, index) => { %>
+              <% if (experience.length > 0) { %>
+                <% experience.forEach((exp, index) => { %>
                   <div class="form-subsection">
                     <input type="text" placeholder="Job Title" name="experience[<%= index %>][jobTitle]" value="<%= exp.jobTitle %>" />
                     <input type="text" placeholder="Company" name="experience[<%= index %>][company]" value="<%= exp.company %>" />
                     <input type="date" placeholder="Start Date" name="experience[<%= index %>][startDate]" value="<%= exp.startDate ? exp.startDate.split('T')[0] : '' %>" />
-                    <input type="date" placeholder="End Date" name="experience[<%= index %>][endDate]" value="<%= exp.endDate ? exp.endDate.split('T')[0] : '' %}" />
+                    <input type="date" placeholder="End Date" name="experience[<%= index %>][endDate]" value="<%= exp.endDate ? exp.endDate.split('T')[0] : '' %>" />
                     <textarea placeholder="Description" name="experience[<%= index %>][description]"><%= exp.description %></textarea>
                   </div>
                 <% }); %>

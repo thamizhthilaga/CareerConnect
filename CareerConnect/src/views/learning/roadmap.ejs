@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title><%= title %></title>
   <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/roadmap.css" />
 </head>
 <body>
   <%- include('../partials/header') %>
@@ -66,11 +67,15 @@
       <section class="roadmap-section">
         <h3>Essential Skills to Master</h3>
         <div class="skills-matrix">
-          <% career.skills.forEach(skill => { %>
+          <% career.skills.forEach(function(skill) { 
+               var skillName = (typeof skill === 'string') ? skill : (skill.name || 'Skill');
+               var skillLevel = (typeof skill === 'object' && skill.level != null) ? skill.level : 70;
+               if (skillLevel < 0) skillLevel = 0; if (skillLevel > 100) skillLevel = 100;
+          %>
             <div class="skill-progress">
-              <h5><%= skill %></h5>
-              <div class="progress-bar">
-                <div class="progress" style="width: 0%"></div>
+              <h5><%= skillName %></h5>
+              <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="<%= skillLevel %>">
+                <div class="progress" style="width: <%= skillLevel %>%"></div>
               </div>
             </div>
           <% }); %>

@@ -38,7 +38,7 @@ exports.submitAssessment = async (req, res) => {
       await assessment.save();
     }
 
-    res.redirect(`/results?career=${encodeURIComponent(recommendedCareer)}`);
+    res.redirect(`/assessment/results?career=${encodeURIComponent(recommendedCareer)}`);
   } catch (error) {
     console.error(error);
     res.status(500).render('error', { 
